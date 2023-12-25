@@ -1,4 +1,4 @@
-light = False
+light = True
 location = None
 orcs = False
 
@@ -37,26 +37,30 @@ class GreatHall(Room):
             print("You cannot go that way")
 
 class Hall(Room):
+    actions = ("go", "search", "item")
     def __init__(self):
         super().__init__(
             name= "Hall",
             description= "A small room gives you the quietest and gloomiest welcome, a deathly silence. The door is closed behind you, there is no turning back, you are alone in total darkness...",
-            item= True 
+            item= "torch" 
         )
         if light :
             self.description = "In the dim light of the torch, you can see that the hall divides into several paths: a narrow passage to the left, a wide corridor to the right, and stairs leading down to the forward end."
     
     def go(self, direction):
-        global location
-        if direction == "right":
-            location = great_hall
-            return location
-        elif direction == "left":
-            pass
-        elif direction == "forward":
-            pass
+        if not light:
+            print("You cannot see where to go in this darkness")
         else:
-            print("You cannot go that way")
+            global location
+            if direction == "right":
+                location = great_hall
+                
+            elif direction == "left":
+                pass
+            elif direction == "forward":
+                pass
+            else:
+                print("You cannot go that way")
     
     
 great_hall = GreatHall()
@@ -65,7 +69,7 @@ hall = Hall()
 # Game starts at the Hall
 location = hall
 print(location)
-location.action("go right")
+location.go("right")
 print(location)    
 print(location.enter())
 
