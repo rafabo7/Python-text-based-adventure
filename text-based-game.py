@@ -1,4 +1,5 @@
 import re
+from pyfiglet import Figlet
 
 light = True
 location = None
@@ -56,7 +57,6 @@ class Hall(Room):
             global location
             if direction == "right":
                 location = great_hall
-                print(location.enter())
                 
             elif direction == "left":
                 pass
@@ -72,13 +72,16 @@ hall = Hall()
 # Game starts at the Hall
 location = hall
 print(location)
-print("Welcome to he game. Lets check if this is working. Good luck")
+f = Figlet(font='slant')
+print(f.renderText('Lost in Moria'))
+print("Welcome to Lost in Moria, a text-based adventure game built while I was learning Python.\nAs a text-based adventure, you're expected to enter what your character will do in the form of text. \nThis game accepts some words like 'go', 'search', 'look' and others related to the items you might find during your adventure.\nThis symbol ('> ') indicates when you are expected to enter a command, if you don't see this symbol it probably means that the program is loading or the game is finished.\nHave fun and good luck!")
 while True:
     location.enter()
     command = input("\n> ").strip().lower()
     if command.startswith("go"):
         action, direction = command.split(" ")
         location.go(direction)
+        continue
     elif command in location.actions:
         pass
 
