@@ -54,6 +54,7 @@ class Hall(Room):
             global location
             if direction == "right":
                 location = great_hall
+                location.enter()
                 
             elif direction == "left":
                 pass
