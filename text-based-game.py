@@ -1,3 +1,5 @@
+import re
+
 light = True
 location = None
 orcs = False
@@ -14,12 +16,12 @@ class Room:
         self.item = item
 
     def enter(self):
-        return f"You have entered the {self.name}. \n{self.description}"
+        return print(f"\nYou have entered the {self.name}. \n{self.description}") 
     
     def look(self):
-        return self.description
+        return print(self.description)
     def search(self):
-        if self.item == False:
+        if not self.item:
             return "There's nothing else of interest around here"
     
 class GreatHall(Room):
@@ -37,7 +39,7 @@ class GreatHall(Room):
             print("You cannot go that way")
 
 class Hall(Room):
-    actions = ("go", "search", "item")
+    actions = ("search", "look")
     def __init__(self):
         super().__init__(
             name= "Hall",
@@ -54,7 +56,7 @@ class Hall(Room):
             global location
             if direction == "right":
                 location = great_hall
-                location.enter()
+                print(location.enter())
                 
             elif direction == "left":
                 pass
@@ -70,9 +72,18 @@ hall = Hall()
 # Game starts at the Hall
 location = hall
 print(location)
-location.go("right")
-print(location)    
-print(location.enter())
+print("Welcome to he game. Lets check if this is working. Good luck")
+while True:
+    location.enter()
+    command = input("\n> ").strip().lower()
+    if command.startswith("go"):
+        action, direction = command.split(" ")
+        location.go(direction)
+    elif command in location.actions:
+        pass
+
+
+
 
 
 
