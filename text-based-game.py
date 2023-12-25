@@ -40,7 +40,7 @@ class Hall(Room):
     def __init__(self):
         super().__init__(
             name= "Hall",
-            description= "A small room gives you the quietest and most sinister welcome, a deathly silence. The door is closed behind you, there is no turning back, you are alone in total darkness...",
+            description= "A small room gives you the quietest and gloomiest welcome, a deathly silence. The door is closed behind you, there is no turning back, you are alone in total darkness...",
             item= True 
         )
         if light :
