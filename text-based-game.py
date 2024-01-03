@@ -90,17 +90,24 @@ print(
 while True:
     answer = input("> ").strip().lower()
     if answer != "mellon":
+        print(
+            "Nothing happens... the wind howls..."
+        )
         continue
     else:
         print(
             "The heavy stone doors open slowly, revealing nothing but dense darkness. Do you enter?"
         )
-        while True:
-            answer = input("> ").strip().lower()
-            if answer != "yes":
-                break
         break
-    
+while True:
+    answer = input("> ").strip().lower()
+    if answer != "yes":
+        break
+    else:
+        print(
+            "Fine... whenever you are ready..."
+        )
+
 while True:
     location.enter()
     command = input("\n> ").strip().lower()
