@@ -40,7 +40,6 @@ class GreatHall(Room):
             print("You cannot go that way")
 
 class Hall(Room):
-    actions = ("search", "look")
     def __init__(self):
         super().__init__(
             name= "Hall",
@@ -50,6 +49,11 @@ class Hall(Room):
         if light :
             self.description = "In the dim light of the torch, you can see that the hall divides into several paths: a narrow passage to the left, a wide corridor to the right, and stairs leading down to the forward end."
     
+    def actions(self, input):
+        
+        if input.startswith("go"):
+            location.go(input[3:])
+
     def go(self, direction):
         if not light:
             print("You cannot see where to go in this darkness")
@@ -74,16 +78,33 @@ location = hall
 print(location)
 f = Figlet(font='slant')
 print(f.renderText('Lost in Moria'))
-print("Welcome to Lost in Moria, a text-based adventure game built while I was learning Python.\nAs a text-based adventure, you're expected to enter what your character will do in the form of text. \nThis game accepts some words like 'go', 'search', 'look' and others related to the items you might find during your adventure.\nThis symbol ('> ') indicates when you are expected to enter a command, if you don't see this symbol it probably means that the program is loading or the game is finished.\nHave fun and good luck!")
+print(
+    "Welcome to Lost in Moria, a text-based adventure game built while I was learning Python.\nAs a text-based adventure, you're expected to enter what your character will do in the form of text. \nThis game accepts some words like 'go', 'search', 'look' and others related to the items you might find during your adventure.\nThis symbol ('> ') indicates when you are expected to enter a command, if you don't see this symbol it probably means that the program is loading or the game is finished.\nHave fun and good luck!"
+    )
+print(
+    "You stand before the famous Doors of Durin... they appear to be locked, but an Elvish engraving presents you with a well-known riddle:"
+)
+print(
+    "Pedo mellon a minno... Say friend an enter..."
+)
+while True:
+    answer = input("> ").strip().lower()
+    if answer != "mellon":
+        continue
+    else:
+        print(
+            "The heavy stone doors open slowly, revealing nothing but dense darkness. Do you enter?"
+        )
+        while True:
+            answer = input("> ").strip().lower()
+            if answer != "yes":
+                break
+        break
+    
 while True:
     location.enter()
     command = input("\n> ").strip().lower()
-    if command.startswith("go"):
-        action, direction = command.split(" ")
-        location.go(direction)
-        continue
-    elif command in location.actions:
-        pass
+    location.actions(command)
 
 
 
