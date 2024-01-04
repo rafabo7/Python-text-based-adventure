@@ -6,7 +6,7 @@ location = None
 orcs = False
 
 class Character:
-    inventory = ()
+    inventory = []
     def __init__(self, name):
         self.name = name
 
@@ -53,6 +53,8 @@ class Hall(Room):
         
         if input.startswith("go"):
             location.go(input[3:])
+        if input == "search":
+            location.search()
 
     def go(self, direction):
         if not light:
@@ -68,8 +70,19 @@ class Hall(Room):
                 pass
             else:
                 print("You cannot go that way")
+    def search(self):
+        if not light:
+            print("You cannot see anything in this darkness")
+        if self.item == None:
+            print("There is nothing here of interest.")
+        else:
+            character.inventory.append(self.item)
+            print(f"You have found a {self.item} lying in the ground.\n*{self.item} was added to your invetory*")
+            self.item = None
+
+
     
-    
+character = Character("Robin")    
 great_hall = GreatHall()
 hall = Hall()
 
@@ -101,7 +114,7 @@ while True:
         break
 while True:
     answer = input("> ").strip().lower()
-    if answer != "yes":
+    if answer == "yes":
         break
     else:
         print(
