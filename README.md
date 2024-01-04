@@ -1,7 +1,6 @@
 # Python-text-based-adventure
-A text-based adventure game built with Python, set in the Mines of Moria from Lord of the Rings.
 
-Welcome to <Lost in Moria>.
+Welcome to **Lost in Moria**.
 This is a text-based game, so there are no graphics and it is played by just typing (the right) text.
 
 This is a non-profit for fun project I am building while diving into my knowledge of Python. It is built with object oriented programming principles in mind.
@@ -17,5 +16,4 @@ In this first version, the game itself is an infinite while loop, depending on t
 
 REQUISITES
 Python 3.4 or higher
-re library
 figlet library
