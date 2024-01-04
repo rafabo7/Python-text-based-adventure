@@ -11,7 +11,7 @@ class Character:
         self.name = name
 
 class Room:
-    def __init__(self, name, description, item=False):
+    def __init__(self, name, description, item=None):
         self.name = name
         self.description = description
         self.item = item
@@ -71,13 +71,11 @@ class Hall(Room):
             else:
                 print("You cannot go that way")
     def search(self):
-        if not light:
-            print("You cannot see anything in this darkness")
         if self.item == None:
             print("There is nothing here of interest.")
         else:
             character.inventory.append(self.item)
-            print(f"You have found a {self.item} lying in the ground.\n*{self.item} was added to your invetory*")
+            print(f"You have found a {self.item} lying in the ground, next to your feet.\n*{self.item} was added to your invetory*")
             self.item = None
 
 
