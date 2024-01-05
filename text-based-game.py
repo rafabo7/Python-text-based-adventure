@@ -34,6 +34,17 @@ class Room:
         self.item = item
 
     # Default methods for the rooms
+        
+    def actions(self, input):
+        if input == 'look':
+            location.look()
+        if input.startswith("go"):
+            location.go(input[3:])
+        if input == "search":
+            location.search()
+        if input.startswith("use"):
+            character.use(input[4:])
+
     def enter(self):
         return print(f"\nYou have entered the {self.name}. \n{self.description}") 
     
@@ -55,6 +66,7 @@ class GreatHall(Room):
         global location
         if direction == "back":
             location = hall
+            location.enter()
         else:
             print("You cannot go that way")
 
@@ -68,14 +80,7 @@ class Hall(Room):
         if light :
             self.description = "In the dim light of the torch, you can see that the hall divides into several paths: a narrow passage to the left, a wide corridor to the right, and stairs leading down to the forward end."
     
-    def actions(self, input):
-        
-        if input.startswith("go"):
-            location.go(input[3:])
-        if input == "search":
-            location.search()
-        if input.startswith("use"):
-            character.use(input[4:])
+    
 
     def go(self, direction):
         global light
@@ -85,11 +90,12 @@ class Hall(Room):
             global location
             if direction == "right":
                 location = great_hall
+                location.enter()
                 
-            elif direction == "left":
-                pass
-            elif direction == "forward":
-                pass
+            # elif direction == "left":
+            #     pass
+            # elif direction == "forward":
+            #     pass
             else:
                 print("You cannot go that way")
     def search(self):
