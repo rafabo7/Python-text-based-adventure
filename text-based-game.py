@@ -1,7 +1,7 @@
 import re
 from pyfiglet import Figlet
 
-light = True
+light = False
 location = None
 orcs = False
 
@@ -10,12 +10,30 @@ class Character:
     def __init__(self, name):
         self.name = name
 
+    def use(self, item, inventory=inventory):
+        global light
+        # Checking for item and item in the inventory
+        if not item:
+            return print("Use what?")
+        elif item not in inventory:
+            return print(f"You don't have a {item}")
+        
+        # Torch funcionality
+        if (item == 'torch') and (light == False):
+            light = True
+            global location
+            location = Hall()
+            return print("You have lit the torch, now you can see what's around you... sort of.")
+        elif (item == 'torch') and light:
+            return print('The torch is already lit.')
+
 class Room:
     def __init__(self, name, description, item=None):
         self.name = name
         self.description = description
         self.item = item
 
+    # Default methods for the rooms
     def enter(self):
         return print(f"\nYou have entered the {self.name}. \n{self.description}") 
     
@@ -24,6 +42,7 @@ class Room:
     def search(self):
         if not self.item:
             return "There's nothing else of interest around here"
+        
     
 class GreatHall(Room):
     def __init__(self):
@@ -55,8 +74,11 @@ class Hall(Room):
             location.go(input[3:])
         if input == "search":
             location.search()
+        if input.startswith("use"):
+            character.use(input[4:])
 
     def go(self, direction):
+        global light
         if not light:
             print("You cannot see where to go in this darkness")
         else:
@@ -75,7 +97,7 @@ class Hall(Room):
             print("There is nothing here of interest.")
         else:
             character.inventory.append(self.item)
-            print(f"You have found a {self.item} lying in the ground, next to your feet.\n*{self.item} was added to your invetory*")
+            print(f"You stepped on something... You found a {self.item} lying in the ground, next to your feet.\n*'{self.item}' was added to your invetory*")
             self.item = None
 
 
