@@ -101,14 +101,12 @@ class Hall(Room):
             self.item = None
 
 
-    
+# Declaring the rooms and the character    
 character = Character("Robin")    
 great_hall = GreatHall()
 hall = Hall()
 
-# Game starts at the Hall
-location = hall
-print(location)
+# Introduction: title, tutorial and first riddle
 f = Figlet(font='slant')
 print(f.renderText('Lost in Moria'))
 print(
@@ -120,6 +118,7 @@ print(
 print(
     "Pedo mellon a minno... Say friend an enter..."
 )
+
 while True:
     answer = input("> ").strip().lower()
     if answer != "mellon":
@@ -141,10 +140,19 @@ while True:
             "Fine... whenever you are ready..."
         )
 
+# The main game
+# The game starts at the hall
+location = hall
+
+
+
 while True:
+    # Main loop: print the room with enter() and wait for user input
     location.enter()
-    command = input("\n> ").strip().lower()
-    location.actions(command)
+    # Secondary loop: all the action the action that happens in a room. Breaks with the correct 'go (direction)'
+    while True:
+        command = input("\n> ").strip().lower()
+        location.actions(command)
 
 
 
