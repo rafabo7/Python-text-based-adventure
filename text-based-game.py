@@ -122,7 +122,7 @@ class GreatHall(Room):
         answer = input("What will you do?\n\n> ").lower().strip()
 
         if answer != "hide":
-            sys.exit("\That did not work at all. A huge horde of orcs captured you and dragged you into the depths. No one will ever hear from you again...\n\nCongratulations! You have discovered the ending 1/6!\n\n")
+            sys.exit("\That did not work at all. A huge horde of orcs captured you and dragged you into the depths. No one will ever hear from you again...\nYou are indeed lost in Moria.\n\nCongratulations! You have discovered the ending 1/6!\n\n")
         else:
             self.item = False
             return print("You manage to hide under the rubble as a horde of orcs passes by, raging and roaring. They run and run, lost in the dark vastness of the Great Hall.")
@@ -141,7 +141,7 @@ hall = Hall()
 f = Figlet(font='slant')
 # print(f.renderText('Lost in Moria'))
 # print(
-#     "Welcome to Lost in Moria, a text-based adventure game built while I was learning Python.\nAs a text-based adventure, you're expected to enter what your character will do in the form of text. \nThis game accepts some words like 'go', 'search', 'look' and others related to the items you might find during your adventure.\nThis symbol ('> ') indicates when you are expected to enter a command, if you don't see this symbol it probably means that the program is loading or the game is finished.\nHave fun and good luck!"
+#     "Welcome to Lost in Moria, a text-based adventure game built while I was learning Python.\nAs a text-based adventure, you're expected to enter what your character will do in the form of text.  \nThis game accepts some words like 'go', 'search', 'look' and others related to the items you might find during your adventure, or the situations that might occur. If there is a typo in your command, the game will most likely not understand it.\nThis symbol ('> ') indicates when you are expected to enter a command, if you don't see this symbol it probably means that the program is loading or the game is finished.\nHave fun and good luck!"
 #     )
 # print(
 #     "You stand before the famous Doors of Durin... they appear to be locked, but an Elvish engraving presents you with a well-known riddle:"
