@@ -1,5 +1,6 @@
 import re
 from pyfiglet import Figlet
+import sys
 
 light = False
 location = None
@@ -39,21 +40,24 @@ class Room:
     def actions(self, input):
         if input == 'look':
             location.look()
-        if input.startswith("go"):
+        elif input.startswith("go"):
             location.go(input[3:])
-        if input == "search":
+        elif input == "search":
             location.search()
-        if input.startswith("use"):
+        elif input.startswith("use"):
             character.use(input[4:])
+        else:
+            return print("Now is not the time to be doing that.")
 
     def enter(self):
         return print(f"\nYou have entered the {self.name}. \n{self.description}") 
     
     def look(self):
         return print(self.description)
+    # This search() method is called when the childs objects are initiate with item = False
     def search(self):
-        if not self.item or self.item == None:
-            return "There's nothing else of interest around here"
+        return print("There's nothing of interest around here")
+
 
 class Hall(Room):
     def __init__(self):
@@ -85,19 +89,19 @@ class Hall(Room):
             else:
                 print("You cannot go that way")
     def search(self):
-        if self.item == None:
-            print("There is nothing here of interest.")
+        if not self.item:
+            print("There is nothing of interest around here.")
         else:
             character.inventory.append(self.item)
             print(f"You stepped on something... You found a {self.item} lying in the ground, next to your feet.\n*'{self.item}' was added to your invetory*")
-            self.item = None        
+            self.item = False        
     
 class GreatHall(Room):
     def __init__(self):
         super().__init__(
             name="Great Hall",
             description="Ahead of you stretches a great hall filled with columns so high that the light from your torch cannot reach their ends. The floor is littered with broken weapons and debris, the remnants of a great battle...",
-            item=False
+            item=True
         )
     def go(self, direction):
         global location
@@ -107,8 +111,23 @@ class GreatHall(Room):
         else:
             print("You cannot go that way")
 
-    # def search(self):
-    #     pass
+    def search(self):
+        if not self.item:
+            return print("There is nothign of interest around here")
+        
+        print("As you sift through the rubbish around you, you stumble upon a large suit of metal armour that is rolling across the floor, making a deafening noise in the stillness of the hall.\n")
+        print("Someone or something has awaken and it comes for you. The drums rumble... dumdamdum... dumdadum...\n")
+        global orcs
+        orcs = True
+        answer = input("What will you do?\n\n> ").lower().strip()
+
+        if answer != "hide":
+            sys.exit("\That did not work at all. A huge horde of orcs captured you and dragged you into the depths. No one will ever hear from you again...\n\nCongratulations! You have discovered the ending 1/6!\n\n")
+        else:
+            self.item = False
+            return print("You manage to hide under the rubble as a horde of orcs passes by, raging and roaring. They run and run, lost in the dark vastness of the Great Hall.")
+
+        
 
 
 
