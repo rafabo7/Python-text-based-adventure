@@ -130,14 +130,14 @@ class GreatHall(Room):
         print("Someone or something has awaken and it comes for you. The drums rumble... dumdamdum... dumdadum...\n")
         global orcs
         orcs = True
-        answer = input("What will you do?\n> ").lower().strip()
+        answer = input("What will you do?\n\n> ").lower().strip()
 
         if answer != "hide":
             print("\nThat did not work at all. A huge horde of orcs captured you and dragged you into the depths. No one will ever hear from you again...\nYou are indeed lost in Moria.")
             sys.exit("\n\nCongratulations! You have discovered the ending 1/2!\n\n")
         else:
             self.item = False
-            return print("You manage to hide under the rubble as a horde of orcs passes by from the forward end of the hall, raging and roaring. They run and run, lost in the dark vastness of the Great Hall.")
+            return print("You manage to hide under the rubble as a horde of orcs passes by from the forward end of the hall, raging and roaring. They run and run, lost in the dark vastness of the Great Hall.\n")
         
 class TreasureDoor(Room):
     def __init__(self):
@@ -148,7 +148,7 @@ class TreasureDoor(Room):
     def open(self):
         print(f"You take the knob of the door and start pulling. You pull and pull until a crack in the door opens and you can fit through.")
         while True:
-            answer = input("Do you enter?\n> ")
+            answer = input("Do you enter?\n\n> ")
             if answer == "yes":
                 print("\nYou pass through the small opening in the door and enter a darker room with a strong smell of metal. Lifting the torch, you see that it is full of treasure, which is now yours as the orcs have abandoned the scene.\nUnfortunately our greed prevents you from leaving the treasures you can't carry, and you decide to stay and watch over them... forever.\nYou are indee lost in Moria.")
                 sys.exit("\n\nCongratulations! You have found the ending 2/2.\n\n")
