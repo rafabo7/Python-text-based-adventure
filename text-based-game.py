@@ -38,18 +38,24 @@ class Room:
     # Default methods for the rooms
         
     def actions(self, input):
-        if input == 'look':
-            location.look()
-        elif input.startswith("go"):
-            location.go(input[3:])
-        elif input == "search":
-            location.search()
-        elif input.startswith("use"):
-            character.use(input[4:])
-        else:
+        
+        try:
+            if input == 'look':
+                location.look()
+            elif input.startswith("go"):
+                location.go(input[3:])
+            elif input == "search":
+                location.search()
+            elif input.startswith("use"):
+                character.use(input[4:])
+            elif input == "open":
+                location.open()
+        except AttributeError:
             return print("Now is not the time to be doing that.")
 
     def enter(self):
+        if location == TreasureDoor:
+            return print(f"You stand before a {location.description}")
         return print(f"\nYou have entered the {self.name}. \n{self.description}") 
     
     def look(self):
@@ -108,6 +114,9 @@ class GreatHall(Room):
         if direction == "back":
             location = hall
             location.enter()
+        elif direction == "forward" and orcs == True:
+            location = treasure_door
+            location.enter
         else:
             print("You cannot go that way")
 
@@ -126,6 +135,20 @@ class GreatHall(Room):
         else:
             self.item = False
             return print("You manage to hide under the rubble as a horde of orcs passes by, raging and roaring. They run and run, lost in the dark vastness of the Great Hall.")
+        
+class TreasureDoor(Room):
+    def __init__(self):
+        super().__init__(
+            name="Wooden Door",
+            description="a sturdy wooden door with a large iron knocker, full of beautiful engravings."
+            )
+    def open(self):
+        print(f"You take the knob of the door and start pulling. You pull and pull until a crack in the door opens and you can fit through.")
+        while True:
+            answer = input("Do you enter?\n> ")
+            if answer == "yes":
+                print("\nYou pass through the small opening in the door and enter a darker room with a strong smell of metal. Lifting the torch, you see that it is full of treasure, which is now yours as the orcs have abandoned the scene.\n")
+                print("\nCongratulations! You have found the ending 2/6.")
 
         
 
@@ -134,14 +157,15 @@ class GreatHall(Room):
 
 # Declaring the rooms and the character    
 character = Character("Robin")    
-great_hall = GreatHall()
 hall = Hall()
+great_hall = GreatHall()
+treasure_door = TreasureDoor()
 
 # Introduction: title, tutorial and first riddle
 f = Figlet(font='slant')
 print(f.renderText('Lost in Moria'))
 print(
-    "Welcome to Lost in Moria, a text-based adventure game built while I was learning Python.\nAs a text-based adventure, you're expected to enter what your character will do in the form of text.  \nThis game accepts some words like 'go', 'search', 'look' and others related to the items you might find during your adventure, or the situations that might occur. If there is a typo in your command, the game will most likely not understand it.\nThis symbol ('> ') indicates when you are expected to enter a command, if you don't see this symbol it probably means that the program is loading or the game is finished.\nHave fun and good luck!"
+    "Welcome to Lost in Moria, a text-based adventure game built while I was learning Python.\nAs a text-based adventure, you're expected to enter what your character will do in the form of text.  \nThis game accepts simple comands like 'go', 'search', 'look', 'use + (item)' and others related to the situations that might occur. If there is a typo in your command, the game will most likely not understand it.\nThis symbol ('> ') indicates when you are expected to enter a command, if you don't see this symbol it probably means that the program is loading or the game is finished.\nHave fun and good luck!"
     )
 print(
     "You stand before the famous Doors of Durin... they appear to be locked, but an Elvish engraving presents you with a well-known riddle:"
