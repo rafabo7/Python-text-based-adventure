@@ -8,7 +8,6 @@ orcs = False
 
 class Character:
     inventory = []
-    status = "normal"
     def __init__(self, name):
         self.name = name
 
@@ -50,11 +49,14 @@ class Room:
                 character.use(input[4:])
             elif input == "open":
                 location.open()
+            else: 
+                print("Now is not the time to be doing that")
         except AttributeError:
             return print("Now is not the time to be doing that.")
+        
 
     def enter(self):
-        if location == TreasureDoor:
+        if isinstance(location, TreasureDoor):
             return print(f"You stand before a {location.description}")
         return print(f"\nYou have entered the {self.name}. \n{self.description}") 
     
@@ -78,20 +80,17 @@ class Hall(Room):
 
     def go(self, direction):
         global light
+        global location
         if not light:
             print("You cannot see where to go in this darkness")
         elif not direction:
             print("Go where?")
         else:
-            global location
             if direction == "right":
                 location = great_hall
                 location.enter()
-                
-            # elif direction == "left":
-            #     pass
-            # elif direction == "forward":
-            #     pass
+            elif direction == "left" or direction == "forward":
+                print(f"You try to go {direction} but it seems the path has collapsed...")
             else:
                 print("You cannot go that way")
     def search(self):
@@ -114,11 +113,14 @@ class GreatHall(Room):
         if direction == "back":
             location = hall
             location.enter()
-        elif direction == "forward" and orcs == True:
-            location = treasure_door
-            location.enter
-        else:
-            print("You cannot go that way")
+        elif direction == "left" or direction == "right":
+            print(f"You walk a few steps to the {direction} but the hall doesn't seem to have an end through this way")
+        elif direction == "forward":
+            if orcs == True:
+                location = treasure_door
+                location.enter()
+            else:
+                print(f"You walk a few steps {direction} but the hall doesn't seem to have an end through this way")
 
     def search(self):
         if not self.item:
@@ -128,13 +130,14 @@ class GreatHall(Room):
         print("Someone or something has awaken and it comes for you. The drums rumble... dumdamdum... dumdadum...\n")
         global orcs
         orcs = True
-        answer = input("What will you do?\n\n> ").lower().strip()
+        answer = input("What will you do?\n> ").lower().strip()
 
         if answer != "hide":
-            sys.exit("\nThat did not work at all. A huge horde of orcs captured you and dragged you into the depths. No one will ever hear from you again...\nYou are indeed lost in Moria.\n\nCongratulations! You have discovered the ending 1/6!\n\n")
+            print("\nThat did not work at all. A huge horde of orcs captured you and dragged you into the depths. No one will ever hear from you again...\nYou are indeed lost in Moria.")
+            sys.exit("\n\nCongratulations! You have discovered the ending 1/2!\n\n")
         else:
             self.item = False
-            return print("You manage to hide under the rubble as a horde of orcs passes by, raging and roaring. They run and run, lost in the dark vastness of the Great Hall.")
+            return print("You manage to hide under the rubble as a horde of orcs passes by from the forward end of the hall, raging and roaring. They run and run, lost in the dark vastness of the Great Hall.")
         
 class TreasureDoor(Room):
     def __init__(self):
@@ -147,8 +150,22 @@ class TreasureDoor(Room):
         while True:
             answer = input("Do you enter?\n> ")
             if answer == "yes":
-                print("\nYou pass through the small opening in the door and enter a darker room with a strong smell of metal. Lifting the torch, you see that it is full of treasure, which is now yours as the orcs have abandoned the scene.\n")
-                print("\nCongratulations! You have found the ending 2/6.")
+                print("\nYou pass through the small opening in the door and enter a darker room with a strong smell of metal. Lifting the torch, you see that it is full of treasure, which is now yours as the orcs have abandoned the scene.\nUnfortunately our greed prevents you from leaving the treasures you can't carry, and you decide to stay and watch over them... forever.\nYou are indee lost in Moria.")
+                sys.exit("\n\nCongratulations! You have found the ending 2/2.\n\n")
+            elif answer == "no":
+                location.enter()
+                break
+    
+    def go(self, direction):
+        global location
+        if direction == "forward":
+            print("There is a door in front of you...")
+        elif direction == "left" or direction == "right":
+            print(f"You walk a few steps {direction} but the hall doesn't seem to have an end through this way")
+        elif direction == "back":
+            location = great_hall
+            print("You are back to the Great Hall")
+
 
         
 
