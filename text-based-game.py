@@ -1,4 +1,4 @@
-import re
+# import re
 from pyfiglet import Figlet
 import sys
 
@@ -172,8 +172,7 @@ class TreasureDoor(Room):
 
 
 
-# Declaring the rooms and the character    
-character = Character("Robin")    
+# Declaring the rooms       
 hall = Hall()
 great_hall = GreatHall()
 treasure_door = TreasureDoor()
@@ -184,6 +183,9 @@ print(f.renderText('Lost in Moria'))
 print(
     "Welcome to Lost in Moria, a text-based adventure game built while I was learning Python.\nAs a text-based adventure, you're expected to enter what your character will do in the form of text.  \nThis game accepts simple comands like 'go', 'search', 'look', 'use + (item)' and others related to the situations that might occur. If there is a typo in your command, the game will most likely not understand it.\nThis symbol ('> ') indicates when you are expected to enter a command, if you don't see this symbol it probably means that the program is loading or the game is finished.\nHave fun and good luck!"
     )
+print("You can start writing your characters name, for example...")
+character = Character(input("\n> "))
+print(f"\nWelcome {character.name}.")
 print(
     "You stand before the famous Doors of Durin... they appear to be locked, but an Elvish engraving presents you with a well-known riddle:"
 )
